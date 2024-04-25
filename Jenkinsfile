@@ -20,14 +20,13 @@ pipeline {
         }
         stage('Terraform init') {
             steps {
-                sh 'terraform init -upgrade'
+                sh 'terraform init'
             }
         }
         stage('Plan') {
             steps {
                 sh 'terraform plan -out tfplan.txt'
-                sh 'terraform show -no-color tfplan > tfplan.txt'
-            }
+                }
         }
         stage('Apply / Destroy') {
             steps {
