@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Plan') {
             steps {
-                sh 'terraform plan -out tfplan.txt'
+                sh 'terraform plan -out tfplan'
                 }
         }
         stage('Apply / Destroy') {
@@ -33,7 +33,7 @@ pipeline {
                 script {
                     if (params.action == 'apply') {
                         if (!params.autoApprove) {
-                            def plan = readFile 'tfplan.txt'
+                            def plan = readFile 'tfplan'
                             input message: "Do you want to apply the plan?",
                             parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                         }
